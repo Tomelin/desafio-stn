@@ -1,0 +1,24 @@
+basePath: /api
+info:
+  contact:
+    email: rafael.tomelin@gmail.com
+  description: Microservice to kubernetes manage
+  title: kubernetes-manager
+  version: "1.0"
+paths:
+  /namespace:
+    get:
+      consumes:
+      - application/json
+      description: count the number of namespaces
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: count namespaces
+      tags:
+      - namespace
+swagger: "2.0"
