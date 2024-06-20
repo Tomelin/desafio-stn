@@ -4,7 +4,7 @@ run-name: Deployment resources in Kubernetes CI
 on:
   workflow_run:
     workflows: 
-      - terraform-deployment
+      - container-image
     types:
       - completed
   push:
