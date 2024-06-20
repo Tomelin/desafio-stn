@@ -1,4 +1,5 @@
-name: Container Image CI
+name: container-image
+run-name: Container Image CI
 
 on:
   push:

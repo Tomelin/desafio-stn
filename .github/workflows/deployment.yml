@@ -1,6 +1,12 @@
-name: terraform-deployment
-run-name: Terraform deployment resources in Azure CI
+name: deployment-kubernetes
+run-name: Deployment resources in Kubernetes CI
+
 on:
+  workflow_run:
+    workflows: 
+      - terraform-deployment
+    types:
+      - completed
   push:
     branches: [ "main" ]
   pull_request:
