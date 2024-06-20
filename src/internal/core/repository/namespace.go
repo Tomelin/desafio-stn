@@ -80,7 +80,6 @@ func (n *RepositoryNamespace) Create(ctx context.Context, request *corev1.Namesp
 	defer cancel()
 
 	ns, err := n.Client.CoreV1().Namespaces().Create(ctx, request, metav1.CreateOptions{})
-
 	if err != nil {
 		return nil, err
 	}

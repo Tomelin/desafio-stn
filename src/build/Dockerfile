@@ -8,13 +8,21 @@ LABEL email="[rafael.tomelin@gmail.com]"
 
 WORKDIR /app
 
-COPY ./src /app/src
+RUN adduser --disabled-password --no-create-home -u 1001 nonroot
 
+ENV GOOS=linux
+ENV GOARCH=amd64
+ENV GO111MODULE=on
 ENV CGO_ENABLED=0
 
-RUN cd /app/src ; go build -ldflags='-s -w' -o /app/kube /app/src/cmd/main.go
+COPY ./src/go.mod .
+COPY ./src/go.sum .
 
-RUN adduser --disabled-password --no-create-home -u 1001 nonroot
+RUN go mod download
+
+COPY ./src /app/
+
+RUN go build -ldflags='-s -w' -o /app/kube /app/cmd/main.go
 
 # # ###############################
 # # ##### IMAGE EXECUTE BINARIO ###
@@ -24,13 +32,11 @@ LABEL org.opencontainers.image.authors="RAFAEL TOMELIN"
 LABEL name="Rafael Tomelin"
 LABEL email="[rafael.tomelin@gmail.com]"
 
-WORKDIR /src
+WORKDIR /app
 
 COPY --from=build /etc/passwd /etc/passwd
 
 USER nonroot
-COPY --chmod=0755 --from=build /app/kube /src/
+COPY --chmod=0755 --from=build /app/kube /app/
 
-CMD ["/src/kube"]
-
-
+CMD ["/app/kube"]

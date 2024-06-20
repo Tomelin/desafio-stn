@@ -18,6 +18,10 @@ import (
 // @version				1.0
 // @description		Microservice to kubernetes manage
 
+// // @securityDefinitions.basic BasicAuth
+// // @in header
+// // @name Authorization
+
 // @contact.email rafael.tomelin@gmail.com
 
 // schemes		http https
@@ -44,6 +48,11 @@ func main() {
 	snamespace := service.NewServiceNamespace(rnamespace)
 	webserver.NewNamespaceWebServer(router.Group, snamespace)
 
+	// start the deployment
+	rdeployment := repository.NewDeploymentRepository(kubeConnection)
+	sdeployment := service.NewDeploymentService(rdeployment)
+	webserver.NewDeploymentWebServer(router.Group, sdeployment)
+
 	t := utils.Timeout{
 		Millisecond: configServer.Timeout,
 	}
@@ -54,7 +63,7 @@ func main() {
 	_, err = snamespace.GetAll(ctx)
 
 	// start webserver
-	router.Run(router.Route.Handler())
+	router.Run(router.Route.Handler(), configServer.Webserver.Listen, configServer.Webserver.Port)
 
 	log.Fatal()
 }

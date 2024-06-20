@@ -1,9 +1,9 @@
 webserver:
-  port: "8443"
+  port: "8080"
   listen: "0.0.0.0"
   http2_enabled: true
   ssl_enabled: false
   certificate_path: {}
   # mode: debug
-kubeconfig: /root/.kube/config
+kubeconfig: /app/.kube/config
 timeout: 1000

@@ -2,6 +2,9 @@ package service
 
 import (
 	"context"
+	"errors"
+	"fmt"
+
 	"github.com/Tomelin/desafio-stn/src/internal/core/repository"
 	corev1 "k8s.io/api/core/v1"
 )
@@ -35,6 +38,25 @@ func (n *ServiceNamespace) GetAll(ctx context.Context) ([]corev1.Namespace, erro
 }
 
 func (n *ServiceNamespace) Create(ctx context.Context, request *corev1.Namespace) (*corev1.Namespace, error) {
+
+	if request == nil {
+		return nil, errors.New("the object namespace cannot be empty or nil")
+	}
+
+	if request.Name == "" {
+		return nil, errors.New("the namespace metadata.name cannot be empty")
+	}
+
+	if request.Kind != "Namespace" {
+		return nil, errors.New("the kind should be Namespace")
+	}
+
+	_, err := n.GetByName(ctx, request.Name)
+	if err != nil {
+		if err.Error() != fmt.Sprintf("namespaces \"%s\" not found", request.Name) {
+			return nil, err
+		}
+	}
 
 	return n.Repository.Create(ctx, request)
 }
