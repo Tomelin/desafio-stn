@@ -181,20 +181,20 @@ variable "enabled_ingress_controller" {
 
 variable "enabled_argocd" {
   type = object({
-    name        = optional(string)
-    repository  = optional(string)
-    chart       = optional(string)
-    version     = optional(string)
-    namespace   = optional(string)
-    installCRDs = optional(bool)
-    enabled     = bool
+    name             = optional(string)
+    repository       = optional(string)
+    chart            = optional(string)
+    version          = optional(string)
+    namespace        = optional(string)
+    installCRDs      = optional(bool)
+    enabled          = bool
     create_namespace = optional(bool)
 
   })
   default = {
-    name = "argocd"
-    enabled = true
-    chart = "argo-cd"
+    name             = "argocd"
+    enabled          = true
+    chart            = "argo-cd"
     create_namespace = true
   }
   description = "description"

@@ -1,5 +1,5 @@
 
-variable name {
+variable "name" {
   type        = string
   default     = "vault"
   description = "Hashicorp vault name"
@@ -23,13 +23,13 @@ variable "chart_version" {
   description = "Chart version"
 }
 
-variable namespace {
+variable "namespace" {
   type        = string
   default     = "vault"
   description = "Namespace"
 }
 
-variable installCRDs {
+variable "installCRDs" {
   type        = bool
   default     = true
   description = "Enabled  install installCRDs"

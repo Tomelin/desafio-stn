@@ -7,11 +7,11 @@
  */
 
 resource "helm_release" "nginx_ingress" {
-  name = var.name
-  repository = var.repository
-  chart      = var.chart
-  create_namespace     = var.create_namespace
-  namespace = var.namespace
+  name             = var.name
+  repository       = var.repository
+  chart            = var.chart
+  create_namespace = var.create_namespace
+  namespace        = var.namespace
 
   set {
     name  = "service.type"

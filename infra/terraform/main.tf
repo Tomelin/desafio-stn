@@ -101,35 +101,35 @@ module "ingress" {
 }
 
 module "argocd" {
-  source      = "./modules/argoproj/argocd"
-  count       = var.enabled_argocd.enabled == true ? 1 : 0
-  name        = var.enabled_argocd.name
-  repository  = var.enabled_argocd.repository
-  chart       = var.enabled_argocd.chart
+  source     = "./modules/argoproj/argocd"
+  count      = var.enabled_argocd.enabled == true ? 1 : 0
+  name       = var.enabled_argocd.name
+  repository = var.enabled_argocd.repository
+  chart      = var.enabled_argocd.chart
   # version     = var.enabled_argocd.version
-  namespace   = var.enabled_argocd.namespace
-  installCRDs = var.enabled_argocd.installCRDs
+  namespace        = var.enabled_argocd.namespace
+  installCRDs      = var.enabled_argocd.installCRDs
   create_namespace = var.enabled_argocd.create_namespace
 }
 
 module "vault" {
-  source      = "./modules/vault"
-  count       = var.enabled_vault.enabled == true ? 1 : 0
-  name        = var.enabled_vault.name
-  repository  = var.enabled_vault.repository
-  chart       = var.enabled_vault.chart
-  namespace   = var.enabled_vault.namespace
-  installCRDs = var.enabled_vault.installCRDs
+  source           = "./modules/vault"
+  count            = var.enabled_vault.enabled == true ? 1 : 0
+  name             = var.enabled_vault.name
+  repository       = var.enabled_vault.repository
+  chart            = var.enabled_vault.chart
+  namespace        = var.enabled_vault.namespace
+  installCRDs      = var.enabled_vault.installCRDs
   create_namespace = var.enabled_vault.create_namespace
 }
 
 module "secrets" {
-  source      = "./modules/external-secrets"
-  count       = var.enabled_secrets.enabled == true ? 1 : 0
-  name        = var.enabled_secrets.name
-  repository  = var.enabled_secrets.repository
-  chart       = var.enabled_secrets.chart
-  namespace   = var.enabled_secrets.namespace
-  installCRDs = var.enabled_secrets.installCRDs
+  source           = "./modules/external-secrets"
+  count            = var.enabled_secrets.enabled == true ? 1 : 0
+  name             = var.enabled_secrets.name
+  repository       = var.enabled_secrets.repository
+  chart            = var.enabled_secrets.chart
+  namespace        = var.enabled_secrets.namespace
+  installCRDs      = var.enabled_secrets.installCRDs
   create_namespace = var.enabled_secrets.create_namespace
 }
