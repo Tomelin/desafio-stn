@@ -68,3 +68,4 @@ jobs:
     - name: Show output
       run: |
         echo ${{ steps.aks_cluster_name.outputs.CONFIG }}
+      working-directory: ./infra/terraform
