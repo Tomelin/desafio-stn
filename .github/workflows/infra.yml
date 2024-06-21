@@ -70,5 +70,4 @@ jobs:
   call-workflow-passing-data:
     uses: ./.github/workflows/dispatch.yaml
     with:
-      config-path: "${{ github.event.action }}"
-      output1: ${{ needs.terraform.outputs.output1 }}
+      ckube-config: "${{ github.event.action }}"
