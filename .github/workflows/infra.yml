@@ -14,10 +14,11 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 
 jobs:
-
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.terraform-output.outputs.test }}
     environment: production
 
     defaults:
@@ -55,10 +56,14 @@ jobs:
       run: |
         OUTPUT_VAR1=$(terraform output aks)
         echo "::set-output name=VAR1::$OUTPUT_VAR1"
+        echo "test=hello" >> "$GITHUB_OUTPUT"
       working-directory: ./infra/terraform
 
     - name: Terraform output created
-      run: terraform output created
+      id: terraform-output
+      run: |
+        OUTPUT_VAR1=$(terraform output created)
+         echo "::set-output name=VAR1::$OUTPUT_VAR1"
       working-directory: ./infra/terraform
 
   call-workflow-passing-data:
