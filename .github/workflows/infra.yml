@@ -16,7 +16,7 @@ env:
 jobs:
 
   deployment2:
-    uses: ./github/workflows/deployment.yaml
+    uses: ./.github/workflows/deployment.yml
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
