@@ -12,10 +12,10 @@ env:
   ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
   ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-  AZURE_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-  AZURE_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-  AZURE_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
-  AZURE_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  # AZURE_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  # AZURE_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+  # AZURE_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+  # AZURE_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 
 jobs:
 
@@ -35,13 +35,6 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1  
 
-    - name: Export variables from secret
-      run: |
-        ENV_JSON='${{ env.ARM_CLIENT_ID }}'
-        echo "$ENV_JSON"
-        ENV_JSON2=${{ env.ARM_CLIENT_ID }}
-        echo "$ENV_JSON2"
-
     - name: Terraform Init
       run: terraform init
       working-directory: ./infra/terraform
@@ -59,5 +52,5 @@ jobs:
       working-directory: ./infra/terraform
 
     - name: Terraform apply a plan
-      run: terraform apply "tfplan" --auto-apporve
+      run: terraform apply "tfplan" --auto-approve
       working-directory: ./infra/terraform
