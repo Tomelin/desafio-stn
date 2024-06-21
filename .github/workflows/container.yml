@@ -33,7 +33,7 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        docker build --tag " ${{ env.registry_host }}/tomelin/desafio-stn" -f ./src/build/Dockerfile .
+        docker build --tag " ${{ env.registry_host }}/tomelin/desafio-stn:0.1.0" -f ./src/build/Dockerfile .
       working-directory: ./
     - name: List images
       run: |
