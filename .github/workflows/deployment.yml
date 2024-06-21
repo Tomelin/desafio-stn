@@ -39,7 +39,10 @@ jobs:
                 echo "${{ github.event.action }}"
       - name: event action
         run: |
-                        echo "${{ github.event_name }}"
+           echo "${{ github.event_name }}"
+      - name: event action
+        run: |
+              echo "${{ github.event.workflow_run.conclusion }}"
   deployment:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: 'Terraform'
