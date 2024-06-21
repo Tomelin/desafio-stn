@@ -16,3 +16,13 @@ jobs:
       with:
         repo-token: ${{ secrets.token }}
         configuration-path: ${{ inputs.kube-config }}
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+          repo-token: ${{ secrets.token }}
+          configuration-path: ${{ inputs.kube-config }}
+
+    - name: Terraform Format
+      run: echo ${{ inputs.kube-config }}
+      

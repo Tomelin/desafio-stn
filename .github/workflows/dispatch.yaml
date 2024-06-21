@@ -1,4 +1,5 @@
 name: Example - Share output between jobs
+run-name: Dispatch
 
 on:
   workflow_call:
