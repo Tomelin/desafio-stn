@@ -7,9 +7,9 @@
  */
 
 resource "helm_release" "vault" {
-   name             = "vault"
+  name             = "vault"
   chart            = "vault"
-  repository = "https://helm.releases.hashicorp.com"
+  repository       = "https://helm.releases.hashicorp.com"
   version          = var.chart_version
   namespace        = var.namespace
   create_namespace = var.create_namespace
@@ -20,7 +20,7 @@ resource "helm_release" "vault" {
     value = true
   }
 
-   set {
+  set {
     name  = "namespace"
     value = "vault"
   }

@@ -1,5 +1,5 @@
 
-variable name {
+variable "name" {
   type        = string
   default     = "vault"
   description = "Hashicorp vault name"
