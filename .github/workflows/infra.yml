@@ -52,5 +52,5 @@ jobs:
       working-directory: ./infra/terraform
 
     - name: Terraform apply a plan
-      run: terraform apply "tfplan" --auto-approve
+      run: terraform apply "tfplan"
       working-directory: ./infra/terraform
