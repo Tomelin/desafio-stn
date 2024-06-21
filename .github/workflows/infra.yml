@@ -15,7 +15,7 @@ env:
 
 jobs:
 
-  deployment:
+  deployment2:
     uses: ./github/workflows/deployment.yaml
   terraform:
     name: 'Terraform'
