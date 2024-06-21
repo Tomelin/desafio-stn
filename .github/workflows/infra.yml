@@ -72,13 +72,13 @@ jobs:
     - name: Terraform output date created
       id: output_created
       run: |
-        echo "DATE=$(terraform output -raw created" >> $GITHUB_OUTPUT
+        echo "DATE=$(terraform output created" >> $GITHUB_OUTPUT
         
     - name: Terraform show date created
       id: show_created
       run: |
           echo "${{ steps.show_created.outputs.DATE }}""
-          
+
       working-directory: ./infra/terraform
     - name: Terraform output debug2
       id: terraform_output_debug2
