@@ -1,4 +1,3 @@
-
 ##############################
 ### Default configurations ###
 variable "tags" {
