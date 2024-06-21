@@ -1,4 +1,5 @@
 name: second
+run-name: second
 
 on:
   push:

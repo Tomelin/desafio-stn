@@ -1,4 +1,5 @@
 name: Workflow A
+run-name: Workflow A
 
 on: ["push"]
     

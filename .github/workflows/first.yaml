@@ -1,4 +1,5 @@
 name: first
+run-name: first
 
 on:
   workflow_run:
