@@ -70,4 +70,4 @@ jobs:
   call-workflow-passing-data:
     uses: ./.github/workflows/dispatch.yaml
     with:
-      ckube-config: "${{ github.event.action }}"
+      kube-config: "${{ github.event.action }}"
