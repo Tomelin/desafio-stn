@@ -61,17 +61,14 @@ jobs:
     - name: Terraform output debug1
       id: aks_cluster_name
       run: |
-        OUTPUT=$(terraform output created)
+        OUTPUT=$(terraform output kube_config)
         echo "::set-output name=CONFIG::$OUTPUT"
       working-directory: ./infra/terraform
-
-    - name: Show output
-      run: |
-        echo ${{ steps.aks_cluster_name.outputs.CONFIG }}
 
   deployment:
     runs-on: ubuntu-latest
     needs: terraform
+    if: needs.terraform.result == 'success'
     steps:
       - uses: actions/checkout@v1
       - name: Use value
