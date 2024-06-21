@@ -51,3 +51,11 @@ jobs:
     - name: Terraform apply a plan
       run: terraform apply --auto-approve
       working-directory: ./infra/terraform
+
+    - name: Terraform output
+      run: terraform output
+      working-directory: ./infra/terraform
+
+    - name: Terraform output created
+      run: terraform output created
+      working-directory: ./infra/terraform
