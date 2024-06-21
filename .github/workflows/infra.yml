@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       output1: ${{ steps.terraform-output.outputs.test }}
+      created: ${{ steps.terraform-output.outputs.test }}
     environment: production
 
     defaults:
@@ -53,6 +54,7 @@ jobs:
       working-directory: ./infra/terraform
 
     - name: Terraform output
+      id: terraform-output
       run: |
         OUTPUT_VAR1=$(terraform output aks)
         echo "::set-output name=VAR1::$OUTPUT_VAR1"
@@ -60,14 +62,16 @@ jobs:
       working-directory: ./infra/terraform
 
     - name: Terraform output created
-      id: terraform-output
+      id: terraform-created
       run: |
-        OUTPUT_VAR1=$(terraform output created)
-         echo "::set-output name=VAR1::$OUTPUT_VAR1"
+        echo OUTPUT=$(terraform output created) >> $GITHUB_ENV
+        echo ${{ env.OUTPUT }}
+        echo "MY_VALUE='value here'" >> $GITHUB_ENV
+        echo "::set-output name=myvalue::${{ env.MY_VALUE }}"
       working-directory: ./infra/terraform
 
 
   call-workflow-passing-data:
     uses: ./.github/workflows/workflow-a.yaml
     with:
-      kube-config: "${{ github.event.action }}"
+      kube-config: "${{ ou }}"
