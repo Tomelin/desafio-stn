@@ -14,8 +14,6 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 
 jobs:
-  jobs-output:
-    uses: ./.github/workflows/dispatch.yaml
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
