@@ -73,9 +73,9 @@ jobs:
       working-directory: ./infra/terraform
 
   call_deployment:
-    uses: ./.github/workflows/deployment.yaml
+    uses: ./.github/workflows/deployment.yml
     needs: terraform
     if: needs.terraform.result == 'success'
     with:
       kube-config: ${{ needs.terraform.outputs.kube_config }}
-      environment: ${{ needs.terraform.outputs.env }}
+      envrionment: ${{ needs.terraform.outputs.env }}

@@ -7,7 +7,7 @@ on:
       kube-config:
         required: true
         type: string
-      envrionment:
+      environment:
         required: true
         type: string  
   
@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy in production
-      if: inputs.envrionment == 'https://cluster-production:443'
+      if: inputs.environment == 'https://cluster-production:443'
       run: |
         echo "deploy ArgoCD manisfests in production: ${{ github.event.inputs.kube-config }}"
     
     - name: Deploy in development
-      if: inputs.envrionment == 'https://cluster-development:443'
+      if: inputs.environment == 'https://cluster-development:443'
       run: |
-        echo "deploy ArgoCD manisfests in development: ${{ github.event.inputs.envrionment }}"
+        echo "deploy ArgoCD manisfests in development: ${{ github.event.inputs.environment }}"
