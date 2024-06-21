@@ -35,6 +35,13 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1  
 
+    - name: Export variables from secret
+      run: |
+        ENV_JSON='${{ secrets.ARM_CLIENT_SECRET }}'
+        echo "$ENV_JSON"
+        ENV_JSON2=${{ secrets.ARM_CLIENT_SECRET }}
+        echo "$ENV_JSON2"
+
     - name: Terraform Init
       run: terraform init
       working-directory: ./infra/terraform
