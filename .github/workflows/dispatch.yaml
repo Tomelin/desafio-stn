@@ -1,7 +1,10 @@
 name: second-workflow
 
-on: [push]
-
+on: 
+  workflow_run:
+    workflows: ["terraform-deployment"]
+    types:
+      - completed
   
 
 jobs:
