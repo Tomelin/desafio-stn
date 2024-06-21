@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-manager
+  labels:
+    app.kubernetes.io/name: service
+    app.kubernetes.io/instance: kube-manager
+  annotations:
+    argocd.argoproject.io/sync-wave: "3"
+spec:
+  ports:
+    - port: 443
+      protocol: TCP
+      name: https
+      targetPort: 8443
+  selector:
+    app.kubernetes.io/name: deployment
+    app.kubernetes.io/instance: kube-manager
+  TYPE: ClusterIP

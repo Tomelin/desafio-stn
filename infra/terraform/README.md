@@ -2,6 +2,8 @@
 
 Group of module to deploy any resource in Azure to support Kubernetes Servuce
 
+OBS.: Em ambiente produtivo, alteraria o source para a url do git.  Não fiz para otimizar o tempo
+
 ## Requirements
 
 The following requirements are needed by this module:
@@ -9,6 +11,8 @@ The following requirements are needed by this module:
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.4)
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (3.108.0)
+
+- <a name="requirement_helm"></a> [helm](#requirement\_helm) (2.14.0)
 
 ## Providers
 
@@ -24,9 +28,21 @@ Source: ./modules/aks
 
 Version:
 
+### <a name="module_argocd"></a> [argocd](#module\_argocd)
+
+Source: ./modules/argoproj/argocd
+
+Version:
+
 ### <a name="module_identity"></a> [identity](#module\_identity)
 
 Source: ./modules/idm
+
+Version:
+
+### <a name="module_ingress"></a> [ingress](#module\_ingress)
+
+Source: ./modules/ingress
 
 Version:
 
@@ -112,6 +128,64 @@ Type: `bool`
 
 Default: `false`
 
+### <a name="input_enabled_argocd"></a> [enabled\_argocd](#input\_enabled\_argocd)
+
+Description: ArgoCD
+
+Type:
+
+```hcl
+object({
+    name             = optional(string)
+    repository       = optional(string)
+    chart            = optional(string)
+    version          = optional(string)
+    namespace        = optional(string)
+    installCRDs      = optional(bool)
+    enabled          = bool
+    create_namespace = optional(bool)
+
+  })
+```
+
+Default:
+
+```json
+{
+  "chart": "argo-cd",
+  "create_namespace": true,
+  "enabled": true,
+  "name": "argocd"
+}
+```
+
+### <a name="input_enabled_ingress_controller"></a> [enabled\_ingress\_controller](#input\_enabled\_ingress\_controller)
+
+Description: Enable to install nginx ingress controller
+
+Type:
+
+```hcl
+object({
+    name       = string
+    repository = string
+    chart      = string
+    enabled    = bool
+
+  })
+```
+
+Default:
+
+```json
+{
+  "chart": "nginx-ingress-controller",
+  "enabled": false,
+  "name": "nginx-ingress-controller",
+  "repository": "https://charts.bitnami.com/bitnami"
+}
+```
+
 ### <a name="input_law_sku"></a> [law\_sku](#input\_law\_sku)
 
 Description: Specifies the SKU of the Log Analytics Workspace
@@ -130,11 +204,19 @@ Default: `"East US"`
 
 ### <a name="input_name"></a> [name](#input\_name)
 
-Description: Nome of Azure resource
+Description: Name of Azure resource
 
 Type: `string`
 
-Default: `"tomelin00000"`
+Default: `"tomelin"`
+
+### <a name="input_name_id"></a> [name\_id](#input\_name\_id)
+
+Description: ID to generate a different resources
+
+Type: `number`
+
+Default: `3`
 
 ### <a name="input_network_profile"></a> [network\_profile](#input\_network\_profile)
 
@@ -155,6 +237,61 @@ object({
 ```
 
 Default: `{}`
+
+### <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool)
+
+Description: AKS node pool
+
+Type:
+
+```hcl
+list(object({
+    name                   = string
+    node_count             = number
+    enable_host_encryption = optional(string)
+    os_disk_size_gb        = optional(string)
+    os_disk_type           = optional(string)
+    os_sku                 = optional(string)
+    ultra_ssd_enabled      = optional(bool)
+    vm_size                = optional(string)
+    pod_subnet_id          = optional(string)
+    zones                  = list(string)
+    tags                   = optional(map(string))
+  }))
+```
+
+Default:
+
+```json
+[
+  {
+    "name": "internal",
+    "node_count": 1,
+    "tags": {
+      "Environment": "Production"
+    },
+    "vm_size": "Standard_DS2_v2",
+    "zones": [
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "name": "client",
+    "node_count": 1,
+    "tags": {
+      "Environment": "Development"
+    },
+    "vm_size": "Standard_DS2_v2",
+    "zones": [
+      "1",
+      "2",
+      "3"
+    ]
+  }
+]
+```
 
 ### <a name="input_private_domain"></a> [private\_domain](#input\_private\_domain)
 
@@ -211,6 +348,14 @@ Description: Created time
 ### <a name="output_identity"></a> [identity](#output\_identity)
 
 Description: Created a identity
+
+### <a name="output_ingress"></a> [ingress](#output\_ingress)
+
+Description: Values about the ingress controller
+
+### <a name="output_kube_config"></a> [kube\_config](#output\_kube\_config)
+
+Description: n/a
 
 ### <a name="output_log_analytics"></a> [log\_analytics](#output\_log\_analytics)
 

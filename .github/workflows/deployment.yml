@@ -2,79 +2,25 @@ name: deployment-kubernetes
 run-name: Deployment resources in Kubernetes CI
 
 on:
-  workflow_run:
-    workflows: ["terraform-deployment"]
-    types:
-      - completed
-
+  workflow_call:
+    inputs:
+      kube-config:
+        required: true
+        type: string
+      envrionment:
+        required: true
+        type: string  
   
-env:
-  production: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
-  develop: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
-
 jobs:
-  process-output:
+  deployment:
     runs-on: ubuntu-latest
     steps:
-    - name: Access Specific Output (Example)
+    - name: Deploy in production
+      if: inputs.envrionment == 'https://cluster-production:443'
       run: |
-        echo "Value of VAR1: ${{ github.event.inputs.VAR1 }}"
-
-    - name: Access Full Output (Optional)
+        echo "deploy ArgoCD manisfests in production: ${{ github.event.inputs.kube-config }}"
+    
+    - name: Deploy in development
+      if: inputs.envrionment == 'https://cluster-development:443'
       run: |
-        echo "Full Output: ${{ github.event.inputs.FULL_OUTPUT }}"
-  inpus:
-    name: 'events'
-    runs-on: ubuntu-latest
-    environment: production
-
-    defaults:
-      run:
-        shell: bash
-
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-  
-      # - name: event inputs
-      #   run: |
-      #     echo "${{ github.event.inputs.VAR1 }}"
-
-      - name: event name
-        run: |
-            echo "${{ github.event.workflow.name }}"
-      - name: event action
-        run: |
-                echo "${{ github.event.action }}"
-      - name: event event_name
-        run: |
-           echo "${{ github.event_name }}"
-      - name: event conclusion
-        run: |
-              echo "${{ github.event.workflow_run.conclusion }}"
-  # deployment:
-  #   if: ${{ github.event.workflow_run.conclusion == 'success' }}
-  #   name: 'Terraform'
-  #   runs-on: ubuntu-latest
-  #   environment: production
-
-  #   defaults:
-  #     run:
-  #       shell: bash
-
-
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v4
-
-  #   - name: Setup Terraform
-  #     uses: hashicorp/setup-terraform@v1  
-
-  #   - name: Terraform Init
-  #     run: terraform init
-  #     working-directory: ./infra/terraform
-
-  #   - name: Terraform Format
-  #     run: terraform fmt -check
-  #     working-directory: ./infra/terraform
+        echo "deploy ArgoCD manisfests in development: ${{ github.event.inputs.envrionment }}"

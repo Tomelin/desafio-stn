@@ -1,0 +1,31 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kube-manager
+  labels:
+    app.kubernetes.io/name: deployment
+    app.kubernetes.io/instance: kube-manager
+  annotations:
+    argocd.argoproject.io/sync-wave: "4"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/ssl-passthough: "true"
+spec:
+  ingressClassName: kube-manager
+  rules:
+  - host: manager.mydomian.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: kube-manager
+            port: 
+              number: 443
+# The tls didn't implement
+  tls:
+    - hosts:
+        - manager.mydomian.com
+      secretName: kube-manager
