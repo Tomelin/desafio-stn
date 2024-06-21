@@ -1,0 +1,26 @@
+name: deploy
+run-name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      kube-config:
+        required: true
+        type: string
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+          kube-config: ${{ inputs.kube-config }}
+
+    - name: output kubeconfig
+      run: echo ${{ inputs.kube-config }}
+
+    - name: event inputs kubeconfig
+      run: echo ${{ github.event.inputs.kube-config }}
+      
