@@ -6,8 +6,8 @@ on:
 
 jobs:
 
-  first:
-    name: 'Terraform'
+  second:
+    name: 'Second...'
     runs-on: ubuntu-latest
 
     defaults:
@@ -18,9 +18,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1  
-
-    - name: Terraform Init
+    - name: Sleep
       run: sleep 5
       working-directory: ./infra/terraform
