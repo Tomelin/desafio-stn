@@ -7,6 +7,8 @@ on:
     branches: [ "main", "develop", "production"]
 
 jobs:
+  jobs-output:
+    uses: ./.github/workflows/dispatch.yaml
   call-workflow:
     uses: ./.github/workflows/workflow-a.yaml
 

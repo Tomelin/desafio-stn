@@ -1,7 +1,7 @@
 name: Example - Share output between jobs
 
 on:
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   produce:
