@@ -1,0 +1,14 @@
+name: Second Workflow (Process Output)
+
+on: workflow_dispatch
+
+jobs:
+  process-output:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Access Specific Output (Example)
+      run: echo "Value of VAR1: ${{ github.event.inputs.VAR1 }}"
+
+    - name: Access Full Output (Optional)
+      run: echo "Full Output: ${{ github.event.inputs.FULL_OUTPUT }}"
