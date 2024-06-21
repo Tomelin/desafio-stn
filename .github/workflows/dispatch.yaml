@@ -3,7 +3,7 @@ name: second-workflow
 on: 
   workflow_call:
     inputs:
-      kube-config:
+      config-path:
         required: true
         type: string
       output1:
@@ -14,7 +14,7 @@ jobs:
     steps:
     - name: Access Specific Output (Example)
       run: |
-        echo "Value of VAR1: ${{ github.event.inputs.kube-config }}"
+        echo "Value of VAR1: ${{ github.event.inputs.config-path }}"
     - name: Output
       run: |
           echo "Value of VAR1: ${{ github.event.inputs.output1 }}"
