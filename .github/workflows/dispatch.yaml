@@ -10,7 +10,6 @@ on:
 jobs:
   process-output:
     runs-on: ubuntu-latest
-
     steps:
     - name: Access Specific Output (Example)
       run: |
