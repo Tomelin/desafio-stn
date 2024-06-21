@@ -19,8 +19,14 @@ jobs:
           kube-config: ${{ inputs.kube-config }}
 
     - name: output kubeconfig
-      run: echo ${{ inputs.kube-config }}
+      run: |
+        echo ${{ inputs.kube-config }} > /tmp/config.txt
+        cat /tmp/config.txt
+        rm -f /tmp/config.txt
 
     - name: event inputs kubeconfig
-      run: echo ${{ github.event.inputs.kube-config }}
+      run: |
+        echo ${{ github.event.inputs.kube-config }} > /tmp/config.txt
+        cat /tmp/config.txt
+        rm -f /tmp/config.txt
       
