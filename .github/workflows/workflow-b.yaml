@@ -8,16 +8,21 @@ on:
       - completed
 
 jobs:  
-  run_on_workflow_a_success1:
+  debug:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Run on workflow A success
-        run: echo "Workflow A completes successfully"
+      - name: success 
+        run: |
+          echo ${{ github.event.workflow_run.conclusion == 'success' }}
       - name: workflow_run
         run: |
           echo ${{ github.event.workflow_run.conclusion == 'success' }}
           echo ${{ github.event.workflow_run.conclusion  }}
+      - name: event_name
+        run: |
+            echo  ${{ github.event_name }}
+            
   run_on_workflow_a_success:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
