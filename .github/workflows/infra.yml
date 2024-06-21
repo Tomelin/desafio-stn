@@ -82,9 +82,23 @@ jobs:
         echo "::set-output name=aks_cluster_name::$OUTPUT_AKS_NAME"
       working-directory: ./infra/terraform
 
+    - name: Terraform output show
+      id: show
+      run: |
+        echo "${{ needs.terraform.outputs.aks_cluster_name }}"
+      working-directory: ./infra/terraform
 
   call-workflow:
     needs: terraform
     uses: ./.github/workflows/deploy.yaml
     with:
       kube-config: "${{ needs.terraform.outputs.aks_cluster_name }}"
+
+  consume:
+    runs-on: ubuntu-latest
+    needs: terraform
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use value
+        run: |
+          echo "${{ needs.terraform.outputs.aks_cluster_name }}"
