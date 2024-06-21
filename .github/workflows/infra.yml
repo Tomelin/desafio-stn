@@ -78,4 +78,4 @@ jobs:
     if: needs.terraform.result == 'success'
     with:
       kube-config: ${{ needs.terraform.outputs.kube_config }}
-      envrionment: ${{ needs.terraform.outputs.env }}
+      environment: ${{ needs.terraform.outputs.env }}
