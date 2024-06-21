@@ -70,3 +70,4 @@ jobs:
     uses: ./.github/workflows/dispatch.yaml
     with:
       kube-config: "${{ github.event.action }}"
+      output1: ${{ needs.terraform.outputs.output1 }}
