@@ -16,7 +16,7 @@ locals {
   private_domain = var.private_domain == "" ? "private.${local.name}.com" : var.private_domain
   name_id        = format("%05d", var.name_id)
   name           = "${var.name}${local.name_id}"
-  environment           = "development"
+  environment    = "development"
 
   kube = module.aks[0].raw
 }
