@@ -18,3 +18,7 @@ jobs:
     - name: Build the Docker image
       run: docker build --tag tomelin/desafio-stn:$(date +%s) -f ./src/build/Dockerfile .
       # working-directory: ./
+    - name: GITHUB_HEAD_REF
+      run: echo "${GITHUB_HEAD_REF}"
+    - name: GITHUB_REF_NAME
+      run: echo "${GITHUB_REF_NAME}"
