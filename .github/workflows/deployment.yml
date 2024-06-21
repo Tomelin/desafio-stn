@@ -3,7 +3,7 @@ run-name: Deployment resources in Kubernetes CI
 
 on:
   workflow_run:
-    workflows: ["second"]
+    workflows: ["terraform-deployment"]
     types:
       - completed
 
@@ -13,10 +13,35 @@ env:
   develop: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
 
 jobs:
+  inpus:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: production
 
+    defaults:
+      run:
+        shell: bash
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+  
+      # - name: event inputs
+      #   run: |
+      #     echo "${{ github.event.inputs.VAR1 }}"
+
+      - name: event name
+        run: |
+            echo "${{ github.event.workflow.name }}"
+      - name: event action
+        run: |
+                echo "${{ github.event.action }}"
+      - name: event action
+        run: |
+                        echo "${{ github.event_name }}"
   deployment:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
