@@ -33,7 +33,6 @@ output "aks" {
   description = "Created a kubernetes service"
 }
 
-
 output "ingress" {
   value       = module.ingress
   description = "Values about the ingress controller"
