@@ -102,3 +102,9 @@ jobs:
       - name: Use value
         run: |
           echo "${{ needs.terraform.outputs.aks_cluster_name }}"
+      - name: Use parse
+        run: |
+            OUTPUT=$(echo "${{ needs.terraform.outputs.aks_cluster_name }}")
+            # Split and filter output (assuming "output created" is the second line)
+            FILTERED_OUTPUT=$(echo "$OUTPUT" | tr '\n' ' ' | awk '{print $2}')  # Alternative approach
+            echo "Filtered Output: $FILTERED_OUTPUT"
