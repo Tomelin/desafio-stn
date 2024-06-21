@@ -1,8 +1,11 @@
 name: deployment-kubernetes
 run-name: Deployment resources in Kubernetes CI
 
-on: [push]
-
+on:
+  workflow_run:
+    workflows: ["terraform-deployment"]
+    types:
+      - completed
   # push:
   #   branches: [ "main", "develop", "production" ]
   # pull_request:
@@ -14,6 +17,7 @@ env:
 jobs:
 
   terraform:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
