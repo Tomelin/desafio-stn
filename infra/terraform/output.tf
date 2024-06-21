@@ -43,5 +43,5 @@ output "kube_config" {
   sensitive = true
 }
 output "environment" {
-  value = local.kube.environment
+  value = local.environment
 }
