@@ -39,6 +39,6 @@ output "ingress" {
   sensitive   = true
 }
 output "aks_local" {
-  value     = local.kube.kube_config
-  sensitive = false
+  value     = local.kube.kube_config[0]
+  sensitive = true
 }
