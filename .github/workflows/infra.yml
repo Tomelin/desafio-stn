@@ -76,7 +76,11 @@ jobs:
           echo "${{ needs.terraform.outputs.kube_config }}" > /tmp/config.txt
           cat /tmp/config.txt
           rm -f /tmp/config.txt
-
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ needs.terraform.outputs.kube_config }}
+        with:
+          args: get pods
   call_deployment:
     uses: ./.github/workflows/deploy.yaml
     needs: terraform
