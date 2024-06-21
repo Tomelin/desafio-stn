@@ -16,6 +16,6 @@ jobs:
       pull-requests: write
     uses: ./.github/workflows/workflow-a.yaml
     with:
-      config-path: 'mydata'
+      config-path: deployment/gitops/project.yaml
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
