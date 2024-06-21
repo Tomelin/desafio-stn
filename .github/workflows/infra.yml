@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       kube_config: ${{ steps.aks_cluster_name.outputs.CONFIG }}
-      env: ${{ steps.aks_cluster_name.outputs.ENVIRONMENT }}
+      env: ${{ steps.aks_cluster_name.outputs.ENV }}
 
     defaults:
       run:
