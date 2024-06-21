@@ -38,7 +38,7 @@ output "ingress" {
   description = "Values about the ingress controller"
   sensitive   = true
 }
-output "aks_local" {
+output "kube_config" {
   value     = local.kube.kube_config[0]
   sensitive = true
 }
