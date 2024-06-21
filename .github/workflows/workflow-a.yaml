@@ -13,6 +13,10 @@ jobs:
   job_producing_data:  
     runs-on: ubuntu-latest
     steps:
+      - name: workflow_run
+        run: |
+          echo ${{ github.event.workflow_run.conclusion == 'success' }}
+          echo ${{ github.event.workflow_run.conclusion  }}
       - name: Some Step 
         run: |
             printf '{ 

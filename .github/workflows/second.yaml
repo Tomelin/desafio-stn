@@ -21,3 +21,8 @@ jobs:
     - name: Sleep
       run: sleep 5
       working-directory: ./infra/terraform
+
+    - name: workflow_run
+      run: |
+        echo ${{ github.event.workflow_run.conclusion == 'success' }}
+        echo ${{ github.event.workflow_run.conclusion  }}
