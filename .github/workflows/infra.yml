@@ -61,6 +61,13 @@ jobs:
         echo "test=hello" >> "$GITHUB_OUTPUT"
       working-directory: ./infra/terraform
 
+    - name: Terraform output debug
+      id: terraform_output_debug
+      run: |
+        OUTPUT_AKS_NAME=$(terraform output created)
+        echo $OUTPUT_AKS_NAME
+      working-directory: ./infra/terraform
+
     - name: Terraform output created
       id: aks_cluster_name
       run: |
