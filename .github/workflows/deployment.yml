@@ -13,7 +13,24 @@ env:
   develop: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
 
 jobs:
+  inpus:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: production
 
+    defaults:
+      run:
+        shell: bash
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+  
+      - name: Terraform Init
+        run: |
+          echo "${{ github.event.inputs.VAR1 }}"
+    
   deployment:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: 'Terraform'
