@@ -37,10 +37,10 @@ jobs:
       - name: event action
         run: |
                 echo "${{ github.event.action }}"
-      - name: event action
+      - name: event event_name
         run: |
            echo "${{ github.event_name }}"
-      - name: event action
+      - name: event conclusion
         run: |
               echo "${{ github.event.workflow_run.conclusion }}"
   deployment:
