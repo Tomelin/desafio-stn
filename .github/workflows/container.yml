@@ -10,11 +10,10 @@ on:
 env:
   production: "docker.io"
   develop: "docker.io"
-  registry_username: ${{ secrets.REGISTRY_USERNAME }}
+  registry_username: ${{ vars.REGISTRY_USERNAME }}
   registry_password: ${{ secrets.REGISTRY_PASSWORD }}
   registry_host: ${{ vars.REGISTRY_HOST }}
   
-
 jobs:
 
   build:
@@ -25,7 +24,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: |
-        docker build --tag " ${{ env.registry_host }}/tomelin/desafio-stn:$(date +%s)" -f ./src/build/Dockerfile .
+        docker build --tag "${{ env.registry_host }}/ ${{ env.registry_username }}/desafio-stn:$(date +%s)" -f ./src/build/Dockerfile .
       working-directory: ./
     - name: Docker Auth
       id: docker-auth
