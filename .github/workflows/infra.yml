@@ -73,7 +73,7 @@ jobs:
       working-directory: ./infra/terraform
 
   call_deployment:
-    uses: ./.github/workflows/deployment.yaml
+    uses: ./.github/workflows/deployment.yml
     needs: terraform
     if: needs.terraform.result == 'success'
     with:
