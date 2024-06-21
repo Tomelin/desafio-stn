@@ -1,8 +1,7 @@
 name: Workflow A
 
-on:
-  push:
-    branches: [ "develop" ]
+on: ["push"]
+    
 
 jobs:
   some_job:  
