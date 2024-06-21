@@ -66,6 +66,7 @@ jobs:
          echo "::set-output name=VAR1::$OUTPUT_VAR1"
       working-directory: ./infra/terraform
 
+      
   call-workflow-passing-data:
     uses: ./.github/workflows/dispatch.yaml
     with:
