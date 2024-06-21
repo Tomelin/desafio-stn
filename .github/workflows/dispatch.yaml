@@ -1,6 +1,11 @@
 name: Second Workflow (Process Output)
 
-on: workflow_dispatch
+on: 
+  workflow_run:
+    workflows: ["terraform-deployment"]
+    types:
+      - completed
+  
 
 jobs:
   process-output:

@@ -3,9 +3,9 @@ run-name: Container Image CI
 
 on:
   push:
-    branches: [ "main", "develop", "production" ]
+    branches: [ "teste"]
   pull_request:
-    branches: [ "main", "develop", "production" ]
+    branches: [ "tetse"]
 
 env:
   production: "docker.io"
