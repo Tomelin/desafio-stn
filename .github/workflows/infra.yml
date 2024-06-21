@@ -58,13 +58,17 @@ jobs:
         terraform output
       working-directory: ./infra/terraform
 
-    - name: Terraform output debug1
-      id: aks_cluster_name
+    - name: Terraform ptiny output created
+      id: print_output
       run: |
         OUTPUT=$(terraform output created)
         echo $OUTPUT
-        
-        echo "::set-output name=CONFIG::$(terraform output -raw created)"
+      working-directory: ./infra/terraform
+
+    - name: Terraform output debug1
+      id: aks_cluster_name
+      run: |
+        echo "::set-output name=CONFIG::$(terraform output created)"
       working-directory: ./infra/terraform
 
     - name: Show output
