@@ -68,8 +68,8 @@ jobs:
     - name: Terraform output environment
       id: environment
       run: |
-        ENVIRONMENT=$(terraform output environment)
-        echo "::set-output name=ENV::$ENVIRONMENT"
+        # ENVIRONMENT=$(terraform output environment)
+        echo "::set-output name=ENV::$(terraform output environment)"
       working-directory: ./infra/terraform
 
   call_deployment:
