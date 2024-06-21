@@ -30,15 +30,20 @@ jobs:
         username: ${{ env.registry_username }}
         password: ${{ env.registry_password }}
         registry: ${{ env.registry_host }}
-      
+
+    - name: Set container id
+      id: container_id
+      run: echo "::set-output name=ID::${{ env.container_id }}"
+
     - name: Build the container image
       run: |
-        docker build --tag ${{ env.registry_host }}/${{ env.registry_username }}/desafio-stn:${{ env.container_id }}  -f ./src/build/Dockerfile .
+        
+        docker build --tag ${{ env.registry_host }}/${{ env.registry_username }}/desafio-stn:${{ steps.container_id.outputs.ID }}  -f ./src/build/Dockerfile .
       working-directory: ./
 
     - name: Publish the image
       run: |
-        docker push ${{ env.registry_host }}/${{ env.registry_username }}/desafio-stn:${{ env.container_id }}
+        docker push ${{ env.registry_host }}/${{ env.registry_username }}/desafio-stn:${{ steps.container_id.outputs.ID }}
       working-directory: ./
       
     - name: List images
