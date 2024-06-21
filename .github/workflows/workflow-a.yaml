@@ -6,9 +6,6 @@ on:
       config-path:
         required: true
         type: string
-    secrets:
-      token:
-        required: true
 
 jobs:
   triage:

@@ -17,5 +17,4 @@ jobs:
     uses: ./.github/workflows/workflow-a.yaml
     with:
       config-path: ./deployment/gitops/project.yaml
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+
