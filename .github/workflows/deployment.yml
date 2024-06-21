@@ -27,10 +27,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
   
-      - name: Terraform Init
+      # - name: event inputs
+      #   run: |
+      #     echo "${{ github.event.inputs.VAR1 }}"
+
+      - name: event name
         run: |
-          echo "${{ github.event.inputs.VAR1 }}"
-    
+            echo "${{ github.event.workflow.name }}"
+      - name: event action
+        run: |
+                echo "${{ github.event.action }}"
+      - name: event action
+        run: |
+                        echo "${{ github.event_name }}"
   deployment:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: 'Terraform'
