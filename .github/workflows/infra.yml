@@ -67,7 +67,7 @@ jobs:
         echo OUTPUT=$(terraform output created) >> $GITHUB_ENV
         echo ${{ env.OUTPUT }}
         echo "MY_VALUE='value here'" >> $GITHUB_ENV
-        echo "::set-output name=myvalue::${{ env.MY_VALUE }}"
+        echo "::set-output name=created::${{ env.MY_VALUE }}"
       working-directory: ./infra/terraform
 
 
