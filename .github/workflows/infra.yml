@@ -20,6 +20,7 @@ jobs:
     outputs:
       output1: ${{ steps.terraform-output.outputs.test }}
       aks_cluster_name: ${{ steps.aks_cluster_name.outputs.aks_cluster_name }}
+      created: ${{ steps.output_created.outputs.DATE }}
     environment: production
 
     defaults:
@@ -68,17 +69,28 @@ jobs:
         
       working-directory: ./infra/terraform
 
+    - name: Terraform output date created
+      id: output_created
+      run: |
+        echo "DATE=$(terraform output -raw created" >> $GITHUB_OUTPUT
+        
+    - name: Terraform show date created
+      id: show_created
+      run: |
+          echo "${{ steps.show_created.outputs.DATE }}""
+          
+      working-directory: ./infra/terraform
     - name: Terraform output debug2
       id: terraform_output_debug2
       run: |
-        OUTPUT_AKS_NAME=$(terraform output created)
+        OUTPUT_AKS_NAME=$(terraform output -raw created)
         echo $OUTPUT_AKS_NAME
       working-directory: ./infra/terraform
 
     - name: Terraform output created
       id: aks_cluster_name
       run: |
-        OUTPUT_AKS_NAME=$(terraform output created)
+        OUTPUT_AKS_NAME=$(terraform output -raw created)
         echo "::set-output name=aks_cluster_name::$OUTPUT_AKS_NAME"
       working-directory: ./infra/terraform
 
