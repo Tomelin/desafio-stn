@@ -69,7 +69,7 @@ jobs:
       working-directory: ./infra/terraform
 
 
-  call-workflow-passing-data:
+  call-workflow:
     uses: ./.github/workflows/workflow-a.yaml
     with:
       kube-config: "${{ needs.terraform.outputs.aks_cluster_name }}"
