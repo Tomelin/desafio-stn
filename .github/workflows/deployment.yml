@@ -13,8 +13,18 @@ env:
   develop: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
 
 jobs:
+  process-output:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Access Specific Output (Example)
+      run: |
+        echo "Value of VAR1: ${{ github.event.inputs.VAR1 }}"
+
+    - name: Access Full Output (Optional)
+      run: |
+        echo "Full Output: ${{ github.event.inputs.FULL_OUTPUT }}"
   inpus:
-    name: 'debug'
+    name: 'events'
     runs-on: ubuntu-latest
     environment: production
 

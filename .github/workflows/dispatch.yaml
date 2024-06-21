@@ -1,0 +1,21 @@
+name: second-workflow
+
+on: 
+  workflow_call:
+    inputs:
+      kube-config:
+        required: true
+        type: string
+      output1:
+          type: string
+jobs:
+  process-output:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Access Specific Output (Example)
+      run: |
+        echo "Value of VAR1: ${{ github.event.inputs.kube-config }}"
+    - name: Output
+      run: |
+          echo "Value of VAR1: ${{ github.event.inputs.output1 }}"
+  
