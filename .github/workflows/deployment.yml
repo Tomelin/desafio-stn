@@ -2,16 +2,12 @@ name: deployment-kubernetes
 run-name: Deployment resources in Kubernetes CI
 
 on:
-  # workflow_run:
-  #   workflows: 
-  #     - container.yaml
-  #   types:
-  #     - completed
+  workflow_call:
 
-  push:
-    branches: [ "main", "develop", "production" ]
-  pull_request:
-    branches: [ "main", "develop", "production" ]
+  # push:
+  #   branches: [ "main", "develop", "production" ]
+  # pull_request:
+  #   branches: [ "main", "develop", "production" ]
 env:
   production: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
   develop: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
