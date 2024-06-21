@@ -13,7 +13,7 @@ variable "repository" {
 
 variable "chart" {
   type        = string
-  default     = "hashicorp "
+  default     = "vault"
   description = "Chart of helm"
 }
 

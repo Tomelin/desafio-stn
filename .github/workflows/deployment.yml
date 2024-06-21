@@ -3,19 +3,20 @@ run-name: Deployment resources in Kubernetes CI
 
 on:
   workflow_run:
-    workflows: 
-      - container.yaml
+    workflows: ["second"]
     types:
       - completed
 
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
+  
+env:
+  production: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
+  develop: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
 
 jobs:
 
-  terraform:
+  deployment:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production

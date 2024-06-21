@@ -1,4 +1,3 @@
-
 ##############################
 ### Default configurations ###
 variable "tags" {
@@ -15,7 +14,7 @@ variable "name" {
 
 variable "name_id" {
   type        = number
-  default     = 00001
+  default     = 00003
   description = "ID to generate a different resources"
 }
 
@@ -197,6 +196,48 @@ variable "enabled_argocd" {
     chart            = "argo-cd"
     create_namespace = true
   }
-  description = "description"
+  description = "ArgoCD"
 }
 
+# variable "enabled_vault" {
+#   type = object({
+#     name             = optional(string)
+#     repository       = optional(string)
+#     chart            = optional(string)
+#     version          = optional(string)
+#     namespace        = optional(string)
+#     installCRDs      = optional(bool)
+#     enabled          = bool
+#     create_namespace = optional(bool)
+
+#   })
+#   default = {
+#     name             = "vault"
+#     enabled          = true
+#     chart            = "vault"
+#     create_namespace = true
+#   }
+#   description = "Hashicorp Vault"
+# }
+
+
+# variable "enabled_secrets" {
+#   type = object({
+#     name             = optional(string)
+#     repository       = optional(string)
+#     chart            = optional(string)
+#     version          = optional(string)
+#     namespace        = optional(string)
+#     installCRDs      = optional(bool)
+#     enabled          = bool
+#     create_namespace = optional(bool)
+
+#   })
+#   default = {
+#     name             = "external-secrets"
+#     enabled          = true
+#     chart            = "external-secrets-operator "
+#     create_namespace = true
+#   }
+#   description = "External secrets"
+# }

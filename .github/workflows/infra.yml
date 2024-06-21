@@ -1,10 +1,17 @@
 name: terraform-deployment
 run-name: Terraform deployment resources in Azure CI
+
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop", "production"]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop", "production"]
+
+env:
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+  ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 
 jobs:
 
@@ -16,7 +23,6 @@ jobs:
     defaults:
       run:
         shell: bash
-
 
     steps:
     - name: Checkout
@@ -31,4 +37,26 @@ jobs:
 
     - name: Terraform Format
       run: terraform fmt -check
+      working-directory: ./infra/terraform
+
+    - name: Terraform Create a plan
+      run: terraform plan -out "tfplan"
+      working-directory: ./infra/terraform
+
+    - name: Terraform show a plan
+      run: terraform show "tfplan"
+      working-directory: ./infra/terraform
+
+    - name: Terraform apply a plan
+      run: terraform apply --auto-approve
+      working-directory: ./infra/terraform
+
+    - name: Terraform output
+      run: |
+        OUTPUT_VAR1=$(terraform output aks)
+        echo "::set-output name=VAR1::$OUTPUT_VAR1"
+      working-directory: ./infra/terraform
+
+    - name: Terraform output created
+      run: terraform output created
       working-directory: ./infra/terraform

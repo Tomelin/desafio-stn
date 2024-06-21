@@ -3,12 +3,13 @@ run-name: Container Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "teste"]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "tetse"]
 
 env:
-  name: ${{ github.ref_name }}
+  production: "docker.io"
+  develop: "docker.io"
 
 jobs:
 
@@ -18,13 +19,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build --tag tomelin/desafio-stn:$(date +%s) -f ./src/build/Dockerfile .
+    # - name: Build the Docker image
+    #   run: docker build --tag tomelin/desafio-stn:$(date +%s) -f ./src/build/Dockerfile .
       # working-directory: ./
     - name: GITHUB_HEAD_REF
       run: echo "${GITHUB_HEAD_REF}"
     - name: GITHUB_REF_NAME
-      if:  github.ref_name == 'main'
       run: echo "${GITHUB_REF_NAME}"
     - name: ref_name
       if:  github.ref_name == 'main'

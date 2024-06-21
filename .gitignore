@@ -6,3 +6,7 @@ desafio.*
 terraform.tfstate
 terraform.tfstate.*
 .terraform.lock.hcl
+
+provider.tf
+*/provider.tf
+./infra/terraform/provider.tf

@@ -10,6 +10,13 @@ terraform {
       version = "2.14.0"
     }
   }
+
+  backend "azurerm" {
+    resource_group_name  = "hub"
+    storage_account_name = "terraformvars"
+    container_name       = "terraform"
+    key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
