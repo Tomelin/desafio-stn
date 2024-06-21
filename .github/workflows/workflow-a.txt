@@ -1,0 +1,30 @@
+name: Workflow A
+run-name: Workflow A
+
+on: ["push"]
+    
+
+jobs:
+  some_job:  
+    runs-on: ubuntu-latest
+    steps:
+      - name: Some Step 
+        run: echo "Hello!"
+
+  job_producing_data:  
+    runs-on: ubuntu-latest
+    steps:
+      - name: workflow_run
+        run: |
+          echo ${{ github.event.workflow_run.conclusion == 'success' }}
+          echo ${{ github.event.workflow_run.conclusion  }}
+      - name: Some Step 
+        run: |
+            printf '{ 
+              "prop_1": "Some value",  
+              "prop_2": true
+            }' >> context.json
+      - uses: actions/upload-artifact@v3
+        with:
+          name: context.json
+          path: ./
