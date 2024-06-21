@@ -7,6 +7,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  name: ${{ github.ref_name }}
+
 jobs:
 
   build:
@@ -21,4 +24,9 @@ jobs:
     - name: GITHUB_HEAD_REF
       run: echo "${GITHUB_HEAD_REF}"
     - name: GITHUB_REF_NAME
+      if:  github.ref_name == 'main'
       run: echo "${GITHUB_REF_NAME}"
+    - name: ref_name
+      if:  github.ref_name == 'main'
+      run: echo  ${{ github.ref_name }}
+     
