@@ -12,13 +12,13 @@ jobs:
   call-workflow:
     uses: ./.github/workflows/workflow-a.yaml
     with:
-      config-path: ./deployment/gitops/project.yaml
-      
+      kube-config: ./deployment/gitops/project.yaml
+
   call-workflow-passing-data:
     permissions:
       contents: read
       pull-requests: write
     uses: ./.github/workflows/workflow-a.yaml
     with:
-      config-path: ./deployment/gitops/project.yaml
+      kube-config: ./deployment/gitops/project.yaml
 
