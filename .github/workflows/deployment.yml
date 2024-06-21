@@ -10,17 +10,20 @@ on:
       environment:
         required: true
         type: string  
-  
+env:
+  kube_production: kttps://production-kubernetes.default.svc:443
+  kube_development: kttps://development-kubernetes.default.svc:443
+
 jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy in production
-      if: inputs.environment == 'https://cluster-production:443'
+      if: inputs.environment == 'production'
       run: |
-        echo "deploy ArgoCD manisfests in production: ${{ github.event.inputs.kube-config }}"
+        echo "deploy ArgoCD manisfests in production: ${{ env.kube_production }}"
     
     - name: Deploy in development
-      if: inputs.environment == 'https://cluster-development:443'
+      if: inputs.environment == 'development'
       run: |
-        echo "deploy ArgoCD manisfests in development: ${{ github.event.inputs.environment }}"
+        echo "deploy ArgoCD manisfests in development: ${{ env.kube_development }}"
