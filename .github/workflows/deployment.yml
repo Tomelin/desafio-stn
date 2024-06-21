@@ -14,7 +14,7 @@ env:
 
 jobs:
   inpus:
-    name: 'Terraform'
+    name: 'debug'
     runs-on: ubuntu-latest
     environment: production
 
@@ -37,31 +37,34 @@ jobs:
       - name: event action
         run: |
                 echo "${{ github.event.action }}"
-      - name: event action
+      - name: event event_name
         run: |
-                        echo "${{ github.event_name }}"
-  deployment:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: 'Terraform'
-    runs-on: ubuntu-latest
-    environment: production
+           echo "${{ github.event_name }}"
+      - name: event conclusion
+        run: |
+              echo "${{ github.event.workflow_run.conclusion }}"
+  # deployment:
+  #   if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  #   name: 'Terraform'
+  #   runs-on: ubuntu-latest
+  #   environment: production
 
-    defaults:
-      run:
-        shell: bash
+  #   defaults:
+  #     run:
+  #       shell: bash
 
 
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1  
+  #   - name: Setup Terraform
+  #     uses: hashicorp/setup-terraform@v1  
 
-    - name: Terraform Init
-      run: terraform init
-      working-directory: ./infra/terraform
+  #   - name: Terraform Init
+  #     run: terraform init
+  #     working-directory: ./infra/terraform
 
-    - name: Terraform Format
-      run: terraform fmt -check
-      working-directory: ./infra/terraform
+  #   - name: Terraform Format
+  #     run: terraform fmt -check
+  #     working-directory: ./infra/terraform
