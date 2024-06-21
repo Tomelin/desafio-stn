@@ -58,8 +58,14 @@ jobs:
         terraform output
       working-directory: ./infra/terraform
 
-    - name: Terraform ptiny output created
+    - name: Terraform print output created
       id: print_output
+      run: |
+        terraform output created
+      working-directory: ./infra/terraform
+
+    - name: Terraform echo output created
+      id: echo_output
       run: |
         OUTPUT=$(terraform output created)
         echo $OUTPUT
