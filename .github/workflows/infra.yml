@@ -70,6 +70,6 @@ jobs:
         echo ${{ steps.aks_cluster_name.outputs.CONFIG }}
 
   call_deployment:
-    uses: ./github/workflows/deploy.yaml
+    uses: ./.github/workflows/deploy.yaml
     with:
       kube-config: ${{ needs.terraform.outputs.kube_config }}
