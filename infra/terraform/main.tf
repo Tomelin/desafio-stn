@@ -123,6 +123,7 @@ module "argocd" {
 #   create_namespace = var.enabled_vault.create_namespace
 # }
 
+
 # module "secrets" {
 #   source           = "./modules/external-secrets"
 #   count            = var.enabled_secrets.enabled == true ? 1 : 0
