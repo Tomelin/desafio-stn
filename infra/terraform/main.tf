@@ -4,6 +4,9 @@
  * Group of module to deploy any resource in Azure to support Kubernetes Servuce
  *
  * OBS.: Em ambiente produtivo, alteraria o source para a url do git.  Não fiz para otimizar o tempo
+ * 
+ *  O objectivo aqui, foi criar um cluster AKS que já saia com o ArgoCD, Ingress, Vault e tudo mais instalado.  Claro, ficou pendentes algumas configs desses serviços.  Onde poderiamos fazer de forma do helm_release aplicandos os set, ou aplicar através de um arquivo.
+ *  Outra alternativa, seria criar o cluster e deploy com o ArgoCD fazer o deploy dos demais recursos. 
  */
 
 locals {
@@ -13,6 +16,7 @@ locals {
   private_domain = var.private_domain == "" ? "private.${local.name}.com" : var.private_domain
   name_id        = format("%05d", var.name_id)
   name           = "${var.name}${local.name_id}"
+  environment    = "development"
 
   kube = module.aks[0].raw
 }

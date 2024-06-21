@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       kube_config: ${{ steps.aks_cluster_name.outputs.CONFIG }}
-      env: ${{ steps.aks_cluster_name.outputs.ENVIRONMENT }}
+      env: ${{ steps.environment.outputs.ENV }}
 
     defaults:
       run:
@@ -49,7 +49,7 @@ jobs:
       working-directory: ./infra/terraform
 
     - name: Terraform apply a plan
-      run: terraform apply --auto-approve
+      run: terraform destroy --auto-approve
       working-directory: ./infra/terraform
 
     - name: Terraform output
@@ -68,14 +68,14 @@ jobs:
     - name: Terraform output environment
       id: environment
       run: |
-        ENVIRONMENT=$(terraform output environment)
-        echo "::set-output name=ENV::$ENVIRONMENT"
+        echo "::set-output name=ENV::$(terraform output environment)"
       working-directory: ./infra/terraform
-
+      
   call_deployment:
+
     uses: ./.github/workflows/deployment.yml
     needs: terraform
     if: needs.terraform.result == 'success'
     with:
       kube-config: ${{ needs.terraform.outputs.kube_config }}
-      envrionment: ${{ needs.terraform.outputs.env }}
+      environment: ${{ needs.terraform.outputs.env }}
