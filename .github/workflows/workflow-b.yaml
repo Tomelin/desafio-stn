@@ -1,0 +1,68 @@
+name: Workflow B
+
+on:
+  workflow_run:
+    workflows: ["Workflow A"]
+    types:
+      - completed
+
+jobs:  
+  run_on_workflow_a_success:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run on workflow A success
+        run: echo "Workflow A completes successfully"
+
+  download_context_artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Download artifact'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "context.json"
+            })[0];
+            
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/context.zip`, Buffer.from(download.data));
+            
+      - name: 'Unzip artifact'
+        run: unzip context.zip
+
+      - name: 'Return Parsed JSON'
+        uses: actions/github-script@v6
+        id: return-parsed-json
+        with:
+          script: |
+            let fs = require('fs');
+            let data = fs.readFileSync('./context.json');
+            return JSON.parse(data);
+
+    outputs:
+      property_one: ${{fromJSON(steps.return-parsed-json.outputs.result).prop_1}}
+      property_two: ${{fromJSON(steps.return-parsed-json.outputs.result).prop_2}}
+
+  log_context_values:
+    needs:
+      - download_context_artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Log Context Values'
+        run: |
+          echo "${{ needs.download_context_artifact.outputs.property_one }}"
+          echo "${{ needs.download_context_artifact.outputs.property_two }}"
