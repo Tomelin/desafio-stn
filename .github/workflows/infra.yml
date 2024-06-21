@@ -79,6 +79,7 @@ jobs:
       run: |
           echo "${{ steps.show_created.outputs.DATE }}""
 
+          
       working-directory: ./infra/terraform
     - name: Terraform output debug2
       id: terraform_output_debug2
