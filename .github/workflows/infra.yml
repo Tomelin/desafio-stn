@@ -17,8 +17,8 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    # outputs:
-    #   kube_config: ${{ steps.aks_cluster_name.outputs.aks_cluster_name }}
+    outputs:
+      kube_config: ${{ steps.aks_cluster_name.outputs.CONFIG }}
     environment: production
 
     defaults:
@@ -62,13 +62,6 @@ jobs:
       id: terraform_output_debug1
       run: |
         terraform output created
-        echo "DATE=$(terraform output -raw created)" >> $GITHUB_OUTPUT
+        echo "::set-output name=CONFIG::$(terraform output -raw created)"
       working-directory: ./infra/terraform
-
-    - name: Terraform output date created
-      id: output_created
-      run: |
-        echo "DATE=$(terraform output created)" >> $GITHUB_OUTPUT
-        
-
 

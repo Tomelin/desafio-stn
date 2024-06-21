@@ -8,8 +8,6 @@ on:
     branches: [ "main", "develop"]
 
 env:
-  production: "docker.io"
-  develop: "docker.io"
   registry_username: ${{ vars.REGISTRY_USERNAME }}
   registry_password: ${{ secrets.REGISTRY_PASSWORD }}
   registry_host: ${{ vars.REGISTRY_HOST }}
@@ -45,16 +43,3 @@ jobs:
       run: |
         docker push ${{ env.registry_host }}/${{ env.registry_username }}/desafio-stn:${{ steps.container_id.outputs.ID }}
       working-directory: ./
-      
-    - name: List images
-      run: |
-        docker images
-      working-directory: ./
-    # - name: GITHUB_HEAD_REF
-    #   run: echo "${GITHUB_HEAD_REF}"
-    # - name: GITHUB_REF_NAME
-    #   run: echo "${GITHUB_REF_NAME}"
-    # - name: ref_name
-    #   if:  github.ref_name == 'main'
-    #   run: echo  ${{ github.ref_name }}
-     
