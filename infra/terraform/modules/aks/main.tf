@@ -12,7 +12,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name = var.resource_group
   dns_prefix          = var.dns_prefix
 
-  public_network_access_enabled = false
+  private_cluster_enabled = false
 
   key_vault_secrets_provider {
     secret_rotation_enabled = true
