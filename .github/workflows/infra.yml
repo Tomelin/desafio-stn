@@ -70,6 +70,7 @@ jobs:
 
 
   call-workflow:
+    needs: terraform
     uses: ./.github/workflows/deploy.yaml
     with:
       kube-config: "${{ needs.terraform.outputs.aks_cluster_name }}"
