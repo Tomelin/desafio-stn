@@ -9,7 +9,7 @@ on:
 jobs:
 
   first:
-    name: 'First...'
+    name: 'First'
     runs-on: ubuntu-latest
 
     defaults:

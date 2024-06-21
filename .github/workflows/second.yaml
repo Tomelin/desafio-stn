@@ -7,7 +7,7 @@ on:
 jobs:
 
   second:
-    name: 'Second...'
+    name: 'Second'
     runs-on: ubuntu-latest
 
     defaults:

@@ -3,9 +3,10 @@ run-name: Deployment resources in Kubernetes CI
 
 on:
   workflow_run:
-    workflows: ["terraform-deployment"]
+    workflows: ["second"]
     types:
       - completed
+
   
 env:
   production: "https://internal-sxxx5irz.hcp.eastus.azmk8s.io:443"
