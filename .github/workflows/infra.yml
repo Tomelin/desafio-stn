@@ -72,7 +72,7 @@ jobs:
     - name: Terraform output date created
       id: output_created
       run: |
-        echo "DATE=$(terraform output -raw created)" >> $GITHUB_OUTPUT
+        echo "DATE=$(terraform output created)" >> $GITHUB_OUTPUT
         
     - name: Terraform show date created
       id: show_created
