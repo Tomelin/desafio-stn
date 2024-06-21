@@ -1,0 +1,28 @@
+name: first
+
+on:
+  workflow_run:
+    workflows: ["second"]
+    types:
+      - completed
+
+jobs:
+
+  first:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1  
+
+    - name: Terraform Init
+      run: uptime
+      working-directory: ./infra/terraform
