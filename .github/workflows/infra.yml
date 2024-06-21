@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [ "main", "develop", "production"]
 
+  workflow_run:
+    workflows: ["deployment-kubernetes"]
+    types:
+      - completed
 env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
   ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
@@ -15,8 +19,8 @@ env:
 
 jobs:
 
-  deployment2:
-    uses: ./.github/workflows/deployment.yml
+  # deployment2:
+  #   uses: ./.github/workflows/deployment.yml
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest

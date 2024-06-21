@@ -1,8 +1,7 @@
 name: deployment-kubernetes
 run-name: Deployment resources in Kubernetes CI
 
-on:
-  workflow_call:
+on: [push]
 
   # push:
   #   branches: [ "main", "develop", "production" ]
