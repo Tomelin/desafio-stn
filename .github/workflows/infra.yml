@@ -74,4 +74,4 @@ jobs:
   call-workflow-passing-data:
     uses: ./.github/workflows/workflow-a.yaml
     with:
-      kube-config: "${{ ou }}"
+      kube-config: "${{ needs.terraform.outputs.created }}"
