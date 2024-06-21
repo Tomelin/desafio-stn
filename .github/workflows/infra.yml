@@ -74,7 +74,8 @@ jobs:
     - name: Terraform output debug1
       id: aks_cluster_name
       run: |
-        echo "::set-output name=CONFIG::$(terraform output created)"
+        OUTPUT=$(terraform output created)
+        echo "::set-output name=CONFIG::$OUTPUT"
       working-directory: ./infra/terraform
 
     - name: Show output
