@@ -12,7 +12,7 @@ env:
   develop: "docker.io"
   registry_username: ${{ secrets.REGISTRY_USERNAME }}
   registry_password: ${{ secrets.REGISTRY_PASSWORD }}
-  registry_host: ${{ secrets.REGISTRY_HOST }}
+  registry_host: ${{ vars.REGISTRY_HOST }}
   
 
 jobs:
