@@ -1,0 +1,20 @@
+---
+apiVersion: argoproject.io/v1alpha1
+kind: Application
+metadata:
+  name: deployment-kube-manager
+  namespace: argoproject
+spec:
+  destination:
+    namespace: kube-manager
+    server: https://kubernetes.default.svc
+  project: kube-manager
+  source:
+    path: deployment/manifests
+    repoUrl: https://github.com/Tomelin/desafio-stn
+    targetVersion: main
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

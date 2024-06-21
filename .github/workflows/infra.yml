@@ -18,8 +18,8 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.terraform-output.outputs.test }}
-    environment: production
+      kube_config: ${{ steps.aks_cluster_name.outputs.CONFIG }}
+      env: ${{ steps.aks_cluster_name.outputs.ENVIRONMENT }}
 
     defaults:
       run:
@@ -53,22 +53,29 @@ jobs:
       working-directory: ./infra/terraform
 
     - name: Terraform output
-      run: |
-        OUTPUT_VAR1=$(terraform output aks)
-        echo "::set-output name=VAR1::$OUTPUT_VAR1"
-        echo "test=hello" >> "$GITHUB_OUTPUT"
-      working-directory: ./infra/terraform
-
-    - name: Terraform output created
       id: terraform-output
       run: |
-        OUTPUT_VAR1=$(terraform output created)
-         echo "::set-output name=VAR1::$OUTPUT_VAR1"
+        terraform output
       working-directory: ./infra/terraform
 
+    - name: Terraform output debug1
+      id: aks_cluster_name
+      run: |
+        OUTPUT=$(terraform output kube_config)
+        echo "::set-output name=CONFIG::$OUTPUT"
+      working-directory: ./infra/terraform
 
-  call-workflow-passing-data:
-    uses: ./.github/workflows/dispatch.yaml
+    - name: Terraform output environment
+      id: environment
+      run: |
+        ENVIRONMENT=$(terraform output environment)
+        echo "::set-output name=ENV::$ENVIRONMENT"
+      working-directory: ./infra/terraform
+
+  call_deployment:
+    uses: ./.github/workflows/deployment.yaml
+    needs: terraform
+    if: needs.terraform.result == 'success'
     with:
-      config-path: "${{ github.event.action }}"
-      output1: ${{ needs.terraform.outputs.output1 }}
+      kube-config: ${{ needs.terraform.outputs.kube_config }}
+      environment: ${{ needs.terraform.outputs.env }}
