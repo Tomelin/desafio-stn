@@ -1,5 +1,5 @@
 
-variable "name" {
+variable name {
   type        = string
   default     = "vault"
   description = "Hashicorp vault name"
@@ -13,7 +13,7 @@ variable "repository" {
 
 variable "chart" {
   type        = string
-  default     = "hashicorp "
+  default     = "vault"
   description = "Chart of helm"
 }
 

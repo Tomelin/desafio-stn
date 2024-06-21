@@ -112,24 +112,24 @@ module "argocd" {
   create_namespace = var.enabled_argocd.create_namespace
 }
 
-module "vault" {
-  source           = "./modules/vault"
-  count            = var.enabled_vault.enabled == true ? 1 : 0
-  name             = var.enabled_vault.name
-  repository       = var.enabled_vault.repository
-  chart            = var.enabled_vault.chart
-  namespace        = var.enabled_vault.namespace
-  installCRDs      = var.enabled_vault.installCRDs
-  create_namespace = var.enabled_vault.create_namespace
-}
+# module "vault" {
+#   source           = "./modules/vault"
+#   count            = var.enabled_vault.enabled == true ? 1 : 0
+#   name             = var.enabled_vault.name
+#   repository       = var.enabled_vault.repository
+#   chart            = var.enabled_vault.chart
+#   namespace        = var.enabled_vault.namespace
+#   installCRDs      = var.enabled_vault.installCRDs
+#   create_namespace = var.enabled_vault.create_namespace
+# }
 
-module "secrets" {
-  source           = "./modules/external-secrets"
-  count            = var.enabled_secrets.enabled == true ? 1 : 0
-  name             = var.enabled_secrets.name
-  repository       = var.enabled_secrets.repository
-  chart            = var.enabled_secrets.chart
-  namespace        = var.enabled_secrets.namespace
-  installCRDs      = var.enabled_secrets.installCRDs
-  create_namespace = var.enabled_secrets.create_namespace
-}
+# module "secrets" {
+#   source           = "./modules/external-secrets"
+#   count            = var.enabled_secrets.enabled == true ? 1 : 0
+#   name             = var.enabled_secrets.name
+#   repository       = var.enabled_secrets.repository
+#   chart            = var.enabled_secrets.chart
+#   namespace        = var.enabled_secrets.namespace
+#   installCRDs      = var.enabled_secrets.installCRDs
+#   create_namespace = var.enabled_secrets.create_namespace
+# }
