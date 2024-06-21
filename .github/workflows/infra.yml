@@ -65,3 +65,6 @@ jobs:
         echo "::set-output name=CONFIG::$(terraform output -raw created)"
       working-directory: ./infra/terraform
 
+    - name: Show output
+      run: |
+        echo ${{ steps.terraform_output_debug1.outputs.CONFIG }}
