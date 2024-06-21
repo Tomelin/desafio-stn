@@ -14,7 +14,7 @@ variable "name" {
 
 variable "name_id" {
   type        = number
-  default     = 00001
+  default     = 00003
   description = "ID to generate a different resources"
 }
 
