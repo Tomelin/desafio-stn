@@ -81,5 +81,6 @@ jobs:
   call_deployment:
     uses: ./.github/workflows/deploy.yaml
     needs: terraform
+    if: needs.terraform.result == 'success'
     with:
       kube-config: ${{ needs.terraform.outputs.kube_config }}
