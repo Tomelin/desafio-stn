@@ -77,3 +77,9 @@ jobs:
       - name: Use value
         run: |
           echo "${{ needs.terraform.outputs.kube_config }}"
+
+  call_deployment:
+    uses: ./.github/workflows/deploy.yaml
+    needs: terraform
+    with:
+      kube-config: ${{ needs.terraform.outputs.kube_config }}
