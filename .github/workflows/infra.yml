@@ -1,11 +1,11 @@
 name: terraform-deployment
 run-name: Terraform deployment resources in Azure CI
 
-on:
-  push:
-    branches: [ "main", "develop", "production"]
-  pull_request:
-    branches: [ "main", "develop", "production"]
+# on:
+#   push:
+#     branches: [ "main", "develop", "production"]
+#   pull_request:
+#     branches: [ "main", "develop", "production"]
 
 env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
