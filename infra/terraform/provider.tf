@@ -15,7 +15,7 @@ terraform {
     resource_group_name  = "hub"
     storage_account_name = "terraformvars"
     container_name       = "terraform"
-    key                  = "terraform.tfstate"
+    key                  = "terraform2.tfstate"
   }
 }
 
