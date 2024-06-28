@@ -1,11 +1,11 @@
 name: terraform-deployment
 run-name: Terraform deployment resources in Azure CI
 
-# on:
-#   push:
-#     branches: [ "main", "develop", "production"]
-#   pull_request:
-#     branches: [ "main", "develop", "production"]
+on:
+  push:
+    branches: [ "main", "develop", "production"]
+  pull_request:
+    branches: [ "main", "develop", "production"]
 
 env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
@@ -72,10 +72,10 @@ jobs:
         echo "::set-output name=ENV::$ENVIRONMENT"
       working-directory: ./infra/terraform
 
-  call_deployment:
-    uses: ./.github/workflows/deployment.yml
-    needs: terraform
-    if: needs.terraform.result == 'success'
-    with:
-      kube-config: ${{ needs.terraform.outputs.kube_config }}
-      envrionment: ${{ needs.terraform.outputs.env }}
+  # call_deployment:
+  #   uses: ./.github/workflows/deployment.yml
+  #   needs: terraform
+  #   if: needs.terraform.result == 'success'
+  #   with:
+  #     kube-config: ${{ needs.terraform.outputs.kube_config }}
+  #     envrionment: ${{ needs.terraform.outputs.env }}
