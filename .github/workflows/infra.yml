@@ -49,7 +49,7 @@ jobs:
       working-directory: ./infra/terraform
 
     - name: Terraform apply a plan
-      run: terraform apply --auto-approve
+      run: terraform destroy --auto-approve
       working-directory: ./infra/terraform
 
     - name: Terraform output
